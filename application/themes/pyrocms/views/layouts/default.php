@@ -84,15 +84,6 @@
 			<!-- Sidebar -->
 			<div id="sidebar">
 				<ul>
-					<!-- Navigation menu -->
-					<li>
-						<h2>Navigation</h2>
-						<ul>
-							<?php if(!empty($navigation['sidebar'])) foreach($navigation['sidebar'] as $nav_link): ?>
-							<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
-							<?php endforeach; ?>
-						</ul>
-					</li>
 					<!-- Widgets -->
 					<?php $this->widgets->area('sidebar'); ?>					
 				</ul>
