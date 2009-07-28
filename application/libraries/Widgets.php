@@ -131,7 +131,7 @@ class Widgets {
 		{
 			// Load the view file
 			$view_file = $this->CI->load->view('../widgets/'.$widget_name.'/views/'.$widget_view, $widget_data,true);
-			echo '<li>'.$view_file.'</li>';
+			echo "<li class='widget $widget_name'>$view_file</li>";
 			
 		}
 		else
