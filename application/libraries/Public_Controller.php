@@ -45,6 +45,9 @@ class Public_Controller extends MY_Controller
 			$this->layout->extra_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
 	    }
 		
-	    //$this->output->enable_profiler(TRUE);
+	    if($this->input->get('__debug') == 1 & $this->user_lib->check_role('admin'))
+	    {
+	    	$this->output->enable_profiler(TRUE);
+	    }
 	}
 }
