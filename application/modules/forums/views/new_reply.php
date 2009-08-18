@@ -1,38 +1,47 @@
-<?=form_open_multipart('forums/posts/new_reply/'.$topicID, array('id'=>'submit_post', 'name'=>'submit_post'));?>
-<?=form_hidden('topicID', $topicID);?>
+<?=form_open_multipart('forums/posts/new_reply/'.$topic->id);?>
 
-<? if(!empty($error_msg)): ?>
+<? if( validation_errors() ): ?>
 <table width="100%" border="0" cellpadding="4" cellspacing="0">
   <tr>
-    <td width="85%" bgcolor="#FF0000"><font color="#FFFFFF"><b><?=$error_msg;?></b></font></td>
+    <td width="85%" bgcolor="#FF0000"><font color="#FFFFFF"><b><?php echo validation_errors();?></b></font></td>
   </tr>
 </table>
 <br />
-<? elseif(!empty($preview)): ?>
+<?php endif; ?>
+
+<? if($show_preview): ?>
 <table width="100%" border="0" cellpadding="4" cellspacing="0">
   <tr>
     <th align="left" bgcolor="#999999" scope="col"> Preview</th>
   </tr>
   <tr>
-    <td width="85%" bgcolor="#CCCCCC"><?=$preview;?></td>
+    <td width="85%" bgcolor="#CCCCCC"><?=set_value('text');?></td>
   </tr>
 </table>
 <br />
 <? endif; ?>
+
 <table width="100%" border="0" cellpadding="4" cellspacing="0">
   <tr>
-    <th colspan="2" align="left" bgcolor="#999999" scope="col"> Post a New Reply to <?=$topic_name;?></th>
+    <th colspan="2" align="left" bgcolor="#999999" scope="col"> Post a new reply to "<?php echo $topic->title;?>" in <?php echo $forum->title;?></th>
   </tr>
+  <tr>
+    <td width="15%" valign="top" bgcolor="#CCCCCC"><b>Title:</b></td>
+    <td width="85%" bgcolor="#CCCCCC"><input type="text" class="input" name="title" style='width:100%' size="90" value="<?php echo set_value('title');?>" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
+  </tr> 
   <tr>
     <td width="15%" bgcolor="#CCCCCC"><b>Formatting:</b></td>
-    <td width="85%" bgcolor="#CCCCCC"><?=bbcode_menu();?></td>
+    <td width="85%" bgcolor="#CCCCCC"><?//=bbcode_menu();?></td>
   </tr>
   <tr>
-    <td colspan="2" bgcolor="#CCCCCC"><hr></td>
+    <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
   </tr>  
   <tr>
     <td width="15%" valign="top" bgcolor="#CCCCCC"><b>Message:</b></td>
-    <td width="85%" bgcolor="#CCCCCC"><textarea name="message" rows="15" cols="70"><?=$message;?></textarea></td>
+    <td width="85%" bgcolor="#CCCCCC"><textarea name="text" rows="15" cols="70"><?php echo set_value('text');?></textarea></td>
   </tr>
   <tr>
     <td colspan="2" bgcolor="#CCCCCC"><hr></td>
@@ -40,15 +49,15 @@
   <tr>
     <td  width="15%" valign="top" bgcolor="#CCCCCC"><b>Options:</b></td>
     <td width="85%" bgcolor="#CCCCCC">
-		<input type="checkbox" class="checkbox" name="smileys" value="1" <? if($smileys == 1) { ?>checked="checked"<? } ?> /> Enable smileys in this post<br />
-		<input type="checkbox" class="checkbox" name="notify" value="1" <? if($notify == 1) { ?>checked="checked"<? } ?> /> Notify me via email when someone posts in this thread
+		<?php echo form_checkbox('notify', 1, set_value('notify') == 1); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
 	</td>
   </tr>
   <tr>
-    <td colspan="2" bgcolor="#CCCCCC"><hr></td>
+    <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
   </tr>
   <tr>
-    <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="preview" value="Preview Post" /> | <input type="submit" name="submit" class="submit" value="Submit Post" /></td>
+    <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="preview" value="Preview Topic" /> | <input type="submit" name="submit" class="submit" value="Submit Topic" /></td>
   </tr>  
 </table>
-</form>
+
+<?php echo form_close(); ?>

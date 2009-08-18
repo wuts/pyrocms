@@ -1,9 +1,6 @@
 <?php
 class Topics extends Public_Controller {
 
-	var $data;
-	var $userID;
-
 	function Topics()
 	{
 		parent::Public_Controller();
