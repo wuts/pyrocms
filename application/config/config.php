@@ -12,17 +12,7 @@
 |
 */
 
-if(isset($_SERVER['HTTP_HOST']))
-{
-	$config['base_url'] = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
-	$config['base_url'] .= '://'. $_SERVER['HTTP_HOST'];
-	$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-}
-
-else
-{
-	$config['base_url'] = 'http://localhost/';
-}
+$config['base_url'] = BASE_URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -242,7 +232,7 @@ $config['encryption_key'] = "Jiu348^&H%fa";
 | 'time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'stylecms';
+$config['sess_cookie_name']		= 'pyrocms';
 $config['sess_expiration']		= 0;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= FALSE;
@@ -263,7 +253,7 @@ $config['sess_time_to_update'] 		= 300;
 */
 $config['cookie_prefix']	= "";
 $config['cookie_domain']	= "";
-$config['cookie_path']		= "/";
+$config['cookie_path']		= BASE_URI;
 
 /*
 |--------------------------------------------------------------------------

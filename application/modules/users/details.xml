@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.6" type="content">
 	<name>
-		<EN>Users</EN>
-		<ES>Usuarios</ES>
+		<en>Users</en>
+		<es>Usuarios</es>
 	</name>
 	<description>
-		<EN>Let users register and log in to the site, and manage them via the control panel.</EN>
-		<ES>Permite el registro de usuario y loguearse en el sitio, manéjalos con el panel de control.</ES>
+		<en>Let users register and log in to the site, and manage them via the control panel.</en>
+		<es>Permite el registro de usuario y loguearse en el sitio, manéjalos con el panel de control.</es>
 	</description>
 	<required>1</required>
 	<icon>users_two_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
+	<is_backend_sidebar>1</is_backend_sidebar>
 	<controllers>
 		<controller name="admin">
 			<method>index</method>
@@ -22,7 +23,9 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/users/add">New user</new_item>
+			<new_item href="admin/users/add">
+				<en>New user</en>
+			</new_item>
 		</admin>
 	</navigation>
 </module>

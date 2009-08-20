@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="content">
 	<name>
-		<EN>Categories</EN>
-		<ES>Categorías</ES>
+		<en>Categories</en>
+		<es>Categorías</es>
 	</name>
 	<description>
-		<EN>Manage categories for articles, products, services, etc.</EN>
-		<ES>Administra categorías para artículos, productos, servicios, etc.</ES>
+		<en>Manage categories for articles, products, services, etc.</en>
+		<es>Administra categorías para artículos, productos, servicios, etc.</es>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
+	<is_backend_sidebar>1</is_backend_sidebar>
 	<controllers>
 		<controller name="admin">
 			<method>index</method>
@@ -20,7 +21,9 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/categories/create">New category</new_item>
+			<new_item href="admin/categories/create">
+				<en>New category</en>
+			</new_item>
 		</admin>
 	</navigation>
 </module>

@@ -12,4 +12,5 @@
 <? endif; ?>
 
 <p><em><?=$article->intro;?></em></p>
-<?=stripslashes($article->body);?>
+
+<?=stripslashes($article->body);?> 

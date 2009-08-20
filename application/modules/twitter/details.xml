@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.3" type="admin">
 	<name>
-		<EN>Twitter</EN>
-		<ES>Twitter</ES>
+		<en>Twitter</en>
+		<es>Twitter</es>
 	</name>
 	<description>
-		<EN>Show twitter posts and support general Twitter integration.</EN>
-		<ES>Mostrar puestos twitter Twitter y el apoyo general de la integración.</ES>
+		<en>Show twitter posts and support general Twitter integration.</en>
+		<es>Mostrar puestos twitter Twitter y el apoyo general de la integración.</es>
 	</description>
 	<required>1</required>
 	<is_frontend>0</is_frontend>
 	<is_backend>0</is_backend>
+	<is_backend_sidebar>0</is_backend_sidebar>
 	<controllers>
 		<controller name="admin">
 			<method>index</method>
@@ -21,7 +22,9 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/themes/upload">Upload theme</new_item>
+			<new_item href="admin/themes/upload">
+				<en>Upload theme</en>
+			</new_item>
 		</admin>
 	</navigation>
 </module>

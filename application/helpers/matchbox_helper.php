@@ -2,15 +2,16 @@
 /*****
   * The Matchbox helper gives you lots of handy functions to use with your modules
   * @author		Philip Sturgeon
-  * @email		phil@styledna.net
+  * @email		email@philsturgeon.co.uk
   * @filename	matchbox_helper.php
   * @title		Matchbox Helper
-  * @url		http://www.styledna.net
+  * @url		http://philsturgeon.co.uk
   * @version	1.0
   *****/
 
 	function module_directories() {
 		$CI =& get_instance();
+		
 		return $CI->matchbox->directory_array();
 	}
 
@@ -33,12 +34,17 @@
 	}
 	
 	
-	/***
-	Returns true/false if the module exists
-	  * @param		$module string		The name of the module we are testing
-	  * @return		string
-	***/
-	function is_module($module) {
+	/**
+	* module_exists
+	* Returns true/false if the module exists
+	* 
+	* @param		$module string		The name of the module we are testing
+	* @return		string
+	*
+	*/
+	
+	function module_exists($module)
+	{
 		if(!$module) return FALSE;
 		
 		foreach (module_directories() as $directory) {
@@ -48,6 +54,12 @@
 		}
 		
 		return FALSE;
+	}
+	
+	// depreciated
+	function is_module($module)
+	{
+		return module_exists($module);
 	}
 	
 	/***

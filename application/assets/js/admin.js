@@ -63,6 +63,7 @@ $(function() {
 			$(this).find(".expand").addClass("expanded");
 		}
 		
+		return false;
 	});
 	
 });
@@ -81,6 +82,16 @@ $(document).ready(function() {
              animateIn:{opacity:'1'},
              animateInSpeed:500
 		});
+	});
+
+	$('.languageSelector a').click(function()
+	{
+		// If AJAXify has been run on this page and there is a link hash, use it.
+		if(window.location.hash != '' & window.location.hash.substring(0, 5) == '#http')
+		{
+			window.location.href = window.location.hash.replace('#', '') + $(this).attr('href');
+			return false;
+		}
 	});
 	
 	/* Facebox modal window */
