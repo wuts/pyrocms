@@ -1,9 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
+ * Library created for PyroCMS so that it can handle widgets.
+ * 
  * @name 	Widgets Library
  * @author 	Yorick Peterse
  * @link	http://www.yorickpeterse.com/	
- * @version 0.5a1
  * @license	MIT License
  * 
  * Copyright (c) 2009 Yorick Peterse
@@ -255,57 +256,7 @@ class Widgets {
 			log_message('error','WIdgets Library - Areas.json could not be found');
 		}
 		
-	}
-	
-
-	// Function to get the names of all widgets, either activated or deactivated
-	function get_widget_names($activated = null)
-	{
-		if($activated !== null)
-		{
-			// Active or not ?
-			if($activated == 'activated')
-			{
-				$activated = 'true';
-			}
-			else
-			{
-				$activated = 'false';				
-			}
-
-			// Query time
-			$this->CI->db->select('name');
-			$query = $this->CI->db->get_where('widgets',array('active' => $activated));
-			
-			if($query->num_rows() > 0)
-			{
-				// Set the $results variable
-				$results = $query->result_array();
-				
-				// Create an empty array
-				$names = array();
-				
-				// Loop through each row
-				foreach($results as $row)
-				{
-					$names[] .= $row['name'];
-				}
-				
-				// Return the results
-				return $names;				
-			}
-		}
-		else
-		{
-			// Show an error
-			show_error('The widget state(activated/deactivated) is not specified!');
-			
-			// Load the error
-			log_message('error','Widgets Library - The widget state(activated/deactivated) is not specified!');
-			exit();
-		}
-	}
-	
+	}	
 	
 	/**
 	 * Maintenance functions
@@ -333,37 +284,37 @@ class Widgets {
 	
 	
 	// Function to uninstall a widget
-	public function uninstall_widget($name)
+	public function uninstall_widget($id)
 	{
 		// Delete the widget's table row
-		$this->CI->db->delete('widgets',array('name' => strtolower($name)));
+		$this->CI->db->delete('widgets',array('id' => strtolower($id)));
 		
 		// Log the results
-		log_message('info',"Widgets Library - The following widget has been uninstalled : $name");
+		log_message('info',"Widgets Library - The widget with id $id has been uninstalled");
 	}
 	
 	
 	// Function to activate a widget (after it has been installed)
-	public function activate_widget($name)
+	public function activate_widget($id)
 	{		
 		// Update it
-		$this->CI->db->where('name',strtolower($name));
+		$this->CI->db->where('id',strtolower($id));
 		$this->CI->db->update('widgets',array('active' => 'true'));
 		
 		// Log the results
-		log_message('info',"Widgets Library - The following widget has been activated : $name");
+		log_message('info',"Widgets Library - The widget with id $id has been disabled");
 	}
 	
 	
 	// Function to deactivate a widget (after it has been activated)
-	public function deactivate_widget($name)
+	public function deactivate_widget($id)
 	{
 		// Update it
-		$this->CI->db->where('name',strtolower($name));
+		$this->CI->db->where('id',strtolower($id));
 		$this->CI->db->update('widgets',array('active' => 'false'));
 		
 		// Log the results
-		log_message('info',"Widgets Library - The following widget has been deactivated : $name");
+		log_message('info',"Widgets Library - The widget with id $id has been enabled");
 	}
 	
 }
