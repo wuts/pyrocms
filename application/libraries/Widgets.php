@@ -49,8 +49,7 @@ class Widgets {
 	{		
 		// Create the query to fetch the names of all activated widgets
 		$this->CI->db->select(array('name','area'));
-		$this->CI->db->like('area',$area);
-		$query = $this->CI->db->get_where('widgets',array('active' => 'true'));
+		$query = $this->CI->db->get_where('widgets',array('area' => $area,'active' => 'true'));
 		
 		// Verify the results
 		if($query->num_rows() > 0)
