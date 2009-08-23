@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="1.0" type="content">
+	<name>
+		<en>Widgets</en>
+	</name>
+	<description>
+		<en>Manage widgets for PyroCMS</en>
+	</description>
+	<required>1</required>
+	<icon>app_48.png</icon>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<is_backend_sidebar>1</is_backend_sidebar>
+	<controllers>
+		<controller name="widgets">
+			<method>index</method>
+			<method>install</method>
+			<method>uninstall</method>
+			<method>activate</method>
+			<method>deactivate</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+			<new_item href="admin/users/add">
+				<en>New user</en>
+			</new_item>
+		</admin>
+	</navigation>
+</module>
