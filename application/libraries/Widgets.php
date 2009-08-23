@@ -272,7 +272,7 @@ class Widgets {
 		// Set the fields
 		$data['id']		= 'id';
 		$data['name'] 	= strtolower($name);
-		$data['body'] 	= json_encode($body);
+		$data['body'] 	= $body;
 		$data['active'] = 'false';
 		
 		// Query to create the row for the widget

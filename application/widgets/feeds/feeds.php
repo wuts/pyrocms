@@ -43,16 +43,8 @@ class Feeds extends Widgets {
 	function install() 
 	{
 		$name = 'feeds';
-		$body = '{"title":"Dummy Widget"}';
+		$body = '{"title":"RSS Feeds","link":"http://www.yorickpeterse.com/blog/feed/","limit":"2","desc_only":"true","show_date":"true"}';
 		$this->install_widget($name,$body);
-	}
-	
-	
-	// Uninstall function (executed when the user uninstalls the widget)
-	function uninstall()
-	{
-		$name = 'feeds';
-		$this->uninstall_widget($name);
 	}
 }
 ?>

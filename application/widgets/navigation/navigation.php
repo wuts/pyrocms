@@ -56,13 +56,5 @@ class Navigation extends Widgets {
 		$body = '{"title":"Navigation","group":"sidebar"}';
 		$this->install_widget($name,$body);
 	}
-	
-	
-	// Uninstall function (executed when the user uninstalls the widget)
-	function uninstall()
-	{
-		$name = 'navigation';
-		$this->uninstall_widget($name);
-	}
 }
 ?>

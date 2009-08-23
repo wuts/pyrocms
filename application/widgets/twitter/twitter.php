@@ -32,8 +32,8 @@ class Twitter extends Widgets {
 	// Install function (executed when the user installs the widget)
 	function install() 
 	{
-		$name = 'dummy_widget';
-		$body = '{"title":"Dummy Widget"}';
+		$name = 'twitter';
+		$body = '{"title":"Twitter","display":"friends_timeline","limit":"5","show_image":"true"}';
 		$this->install_widget($name,$body);
 	}
 }

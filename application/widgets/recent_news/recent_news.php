@@ -55,13 +55,5 @@ class Recent_news extends Widgets {
 		$body = '{"title":"Recent News","article_limit":"2","show_intro":"false"}';
 		$this->install_widget($name,$body);
 	}
-	
-	
-	// Uninstall function (executed when the user uninstalls the widget)
-	function uninstall()
-	{
-		$name = 'recent_news';
-		$this->uninstall_widget($name);
-	}
 }
 ?>
