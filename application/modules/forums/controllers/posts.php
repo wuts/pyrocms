@@ -26,7 +26,7 @@ class Posts extends Public_Controller {
 		}
 		
 		// This is a reply
-		if($reply->parent_id)
+		if($reply->parent_id > 0)
 		{
 			redirect('forums/topics/view_topic/'.$reply->parent_id.'#'.$reply_id);
 		}
@@ -40,7 +40,25 @@ class Posts extends Public_Controller {
 	}
 
 	
+	function quote_reply($post_id)
+	{
+		$quote = $this->post_model->getPost($post_id);
+		
+		if(!$quote)
+		{
+			show_404();
+		}
 
+		// Send the message object through
+		$this->session->set_flashdata('forum_quote', serialize($quote));
+		
+		$topic->id = $quote->parent_id > 0 ? $quote->parent_id : $quote->id;
+		
+		// Redirect to the normal reply form. It will pick the quote up
+		redirect('forums/posts/new_reply/'.$topic->id);
+	}
+
+	
 	function new_reply($topic_id = 0)
 	{
 		if(!$this->user_lib->logged_in())
@@ -52,16 +70,21 @@ class Posts extends Public_Controller {
 
 		// Get the forum name
 		$topic = $this->post_model->getTopic($topic_id);
-		$forum = $this->forum_model->getForum($topic->forum_id);
+		$forum = $this->forum_model->getForum(@$topic->forum_id);
 		
 		// Chech if there is a forum with that ID
 		if(!$topic or !$forum)
 		{
 			show_404();
 		}
-	
+
+		// If there was a quote, send it to the view
+		$this->data->quote = unserialize($this->session->flashdata('forum_quote'));
+
+		// We'll assume there was no preview, unless told otherwise later
 		$this->data->show_preview = FALSE;
 		
+		// The form has been submitted one way or another
 		if($this->input->post('submit') or $this->input->post('preview'))
 		{
 			$this->load->library('form_validation');

@@ -196,10 +196,16 @@ class Post_model extends Model {
         return $this->db->insert_id();
 	}
 	
-	function getReply($post_id = 0)
+	function getReply($reply_id = 0)
+	{
+		$this->db->where('id', $reply_id);
+		$this->db->where('parent_id', 0);
+		return $this->db->get($this->post_table, 1)->row();
+	}
+	
+	function getPost($post_id = 0)
 	{
 		$this->db->where('id', $post_id);
-		$this->db->where('parent_id', 0);
 		return $this->db->get($this->post_table, 1)->row();
 	}
 	

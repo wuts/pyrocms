@@ -1,9 +1,8 @@
 <?=anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?> | <?=anchor('forums/posts/new_reply/'.$topic->id, ' Reply ');?>
+
+<h2><?=$topic->title;?></h2>
+
 <table width="100%" border="0" cellpadding="4" cellspacing="0">
-  <tr>
-    <th colspan="3" align="left" bgcolor="#999999" scope="col"><?=$topic->title;?></th>
-  </tr>
-  
   <?php 
 	$i=$pagination->offset;
 	foreach($topic->posts as $post):	
