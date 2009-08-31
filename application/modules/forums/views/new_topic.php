@@ -1,9 +1,9 @@
-<?=form_open_multipart('forums/topics/new_topic/'.$forum->id, array('id'=>'submit_post', 'name'=>'submit_post'));?>
+<?=form_open('forums/topics/new_topic/'.$forum->id);?>
 
-<? if( validation_errors() ): ?>
+<? if( !empty($validation_errors) ): ?>
 <table width="100%" border="0" cellpadding="4" cellspacing="0">
   <tr>
-    <td width="85%" bgcolor="#FF0000"><font color="#FFFFFF"><b><?php echo validation_errors();?></b></font></td>
+    <td width="85%" bgcolor="#FF0000"><font color="#FFFFFF"><b><?php echo $validation_errors;?></b></font></td>
   </tr>
 </table>
 <br />
@@ -49,7 +49,7 @@
   <tr>
     <td  width="15%" valign="top" bgcolor="#CCCCCC"><b>Options:</b></td>
     <td width="85%" bgcolor="#CCCCCC">
-		<?php echo form_checkbox('notify', 1, set_value('notify') == 1); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
+		<?php echo form_checkbox('notify', 1, set_value('notify') == 1 | empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
 	</td>
   </tr>
   <tr>

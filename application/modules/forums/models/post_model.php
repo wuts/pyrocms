@@ -73,7 +73,7 @@ class Post_model extends Model {
 	public function getPostsInTopic($topic_id)
 	{
 		$this->db->or_where(array('id' => $topic_id, 'parent_id' => $topic_id));
-		$this->db->order_by('created_on DESC');
+		$this->db->order_by('created_on');
 		return $this->db->get($this->post_table)->result();		
 	}
 
@@ -156,7 +156,7 @@ class Post_model extends Model {
 		$this->db->update($this->post_table);
 	}
 	
-	
+
 	
 	function newTopic($user_id, $topic, $forum)
 	{
@@ -177,16 +177,33 @@ class Post_model extends Model {
         return $this->db->insert_id();
 	}
 	
-/*
-
-	function getReplyData($replyID = 0)
+	function newReply($user_id, $reply, $topic)
 	{
-		$this->where = "postID = $replyID";
-		$data = $this->getList(1);
-		if(!empty($data)) return $data[0];
-		else return false;
-	}
+		$this->load->helper('date');
+
+		$insert = array(
+			'forum_id' 		=> 0,
+			'author_id' 	=> $user_id,
+			'parent_id' 	=> $topic->id,
+			'title' 		=> '',
+			'text' 			=> $this->input->xss_clean($reply->text),
+			'created_on' 	=> now(),
+			'view_count' 	=> 0,
+        );
 		
+        $this->db->insert($this->post_table, $insert);
+		
+        return $this->db->insert_id();
+	}
+	
+	function getReply($post_id = 0)
+	{
+		$this->db->where('id', $post_id);
+		$this->db->where('parent_id', 0);
+		return $this->db->get($this->post_table, 1)->row();
+	}
+	
+/*
 
 	function getTotalPostsInTopic($topicID = 0)
     {

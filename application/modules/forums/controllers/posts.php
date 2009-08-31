@@ -15,23 +15,28 @@ class Posts extends Public_Controller {
 	}
 	
 
-	function view_reply($replyID = 0)
+	function view_reply($reply_id = 0)
 	{
-		$replyID = intval($replyID);
-		$reply_data = $this->post_model->getReplyData($replyID);
+		$reply = $this->post_model->getReply($reply_id);
+		
 		// Check if reply exists
-		if(!empty($reply_data))
+		if(empty($reply))
 		{
-			if($reply_data['parentID'] != 0)
-				$threadID = $reply_data['parentID'];
-			else 
-				$threadID = $reply_data['postID'];	
-			redirect('forums/topics/view_topic/'.$threadID.'/#'.$replyID);
-		} else {
-			
-			show_error('The reply doesn\'t exist!');
-			$this->template->create('message', $this->data);
+			show_404();
 		}
+		
+		// This is a reply
+		if($reply->parent_id)
+		{
+			redirect('forums/topics/view_topic/'.$reply->parent_id.'#'.$reply_id);
+		}
+		
+		// This is a new topic
+		else
+		{
+			redirect('forums/topics/view_topic/'.$reply_id);
+		}
+			
 	}
 
 	
@@ -61,9 +66,8 @@ class Posts extends Public_Controller {
 		{
 			$this->load->library('form_validation');
 			
-			$this->form_validation->set_rules('forum_id', 'Forum', 'required|numeric');
-			$this->form_validation->set_rules('title', 'Title', 'trim|strip_tags|required|max_length[100]');
 			$this->form_validation->set_rules('text', 'Message', 'trim|strip_tags|required');
+			$this->form_validation->set_rules('notify', 'Subscription notification', 'trim|strip_tags|max_length[1]');
 
 			if ($this->form_validation->run() === TRUE)
 			{
@@ -72,7 +76,7 @@ class Posts extends Public_Controller {
 					$reply->title = set_value('title');
 					$reply->text = set_value('text');
 					
-					if($reply->id = $this->post_model->newReply($this->user_lib->user_data->id, $reply, $forum))
+					if($reply->id = $this->post_model->newReply($this->user_lib->user_data->id, $reply, $topic))
 					{
 						// Add user to notify
 						//if($notify) $this->post_model->AddNotify($topic->id, $this->user_lib->user_data->id );
@@ -94,6 +98,11 @@ class Posts extends Public_Controller {
 					
 					$this->data->show_preview = TRUE;
 				}
+			}
+			
+			else
+			{
+				$this->data->validation_errors = $this->form_validation->error_string();
 			}
 		}
 		

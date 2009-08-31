@@ -81,14 +81,13 @@ class Topics extends Public_Controller {
 			show_404();
 		}
 		
-	
+		// Default this to a nope
 		$this->data->show_preview = FALSE;
 		
 		if($this->input->post('submit') or $this->input->post('preview'))
 		{
 			$this->load->library('form_validation');
 			
-			$this->form_validation->set_rules('forum_id', 'Forum', 'required|numeric');
 			$this->form_validation->set_rules('title', 'Title', 'trim|strip_tags|required|max_length[100]');
 			$this->form_validation->set_rules('text', 'Message', 'trim|strip_tags|required');
 
@@ -96,7 +95,6 @@ class Topics extends Public_Controller {
 			{
 				if( $this->input->post('submit') )
 				{
-					
 					$topic->title = set_value('title');
 					$topic->text = set_value('text');
 					
@@ -122,6 +120,11 @@ class Topics extends Public_Controller {
 					
 					$this->data->show_preview = TRUE;
 				}
+			}
+			
+			else
+			{
+				$this->data->validation_errors = $this->form_validation->error_string();
 			}
 		}
 		
