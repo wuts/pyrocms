@@ -32,6 +32,27 @@ CREATE TABLE `emails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='E-mail addresses for newsletter subscriptions';
 
 
+CREATE TABLE `forum_posts` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
+  `text` text collate utf8_unicode_ci NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `forum_id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `created_on` int(11) NOT NULL,
+  `view_count` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `forums` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
+  `description` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 CREATE TABLE `galleries` (
   `id` int(11) NOT NULL auto_increment,
   `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
