@@ -12,10 +12,10 @@
 <? if($show_preview): ?>
 <table width="100%" border="0" cellpadding="4" cellspacing="0">
   <tr>
-    <th align="left" bgcolor="#999999" scope="col"> Preview</th>
+    <th align="left" bgcolor="#999999" scope="col">Preview</th>
   </tr>
   <tr>
-    <td width="85%" bgcolor="#CCCCCC"><?=set_value('text');?></td>
+    <td width="85%" bgcolor="#CCCCCC"><?=parse_bbcode(set_value('text'));?></td>
   </tr>
 </table>
 <br />

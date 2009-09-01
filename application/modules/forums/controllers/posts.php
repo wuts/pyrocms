@@ -10,6 +10,8 @@ class Posts extends Public_Controller {
 
 		$this->lang->load('forum');
 		
+		$this->load->helper('bbcode');
+		
 		// Add a link to the forum CSS into the head
 		$this->layout->extra_head( css('forum.css', 'forum') );
 	}

@@ -15,7 +15,7 @@
     <th align="left" bgcolor="#999999" scope="col"> Preview</th>
   </tr>
   <tr>
-    <td width="85%" bgcolor="#CCCCCC"><?=set_value('text');?></td>
+    <td width="85%" bgcolor="#CCCCCC"><?=parse_bbcode(set_value('text'));?></td>
   </tr>
 </table>
 <br />
@@ -48,7 +48,6 @@
   <tr>
     <td  width="15%" valign="top" bgcolor="#CCCCCC"><b>Options:</b></td>
     <td width="85%" bgcolor="#CCCCCC">
-    <?php var_dump(set_value('notify') )?>
 		<?php echo form_checkbox('notify', 1, set_value('notify') == 1 | empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
 	</td>
   </tr>

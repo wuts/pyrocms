@@ -6,6 +6,7 @@
 </style>
 
 <?php foreach($forum_categories as $category): ?>
+<?php if($category->forums): ?>
 
 <table width="100%" border="0" cellpadding="4" cellspacing="0">
 	<thead>
@@ -46,4 +47,5 @@
   
 </table>
 <br/><br/>
+<?php endif; ?>
 <?php endforeach; ?>

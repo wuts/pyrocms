@@ -23,7 +23,7 @@
 	Joined Date: 
 	<?=$post->author->created_on;?>
 	</td>
-    <td colspan="2" valign="top"><?=$post->text;?></td>
+    <td colspan="2" valign="top"><?=parse_bbcode($post->text);?></td>
   </tr>
   
   <tr bgcolor="#B4B4B4">
