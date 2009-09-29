@@ -1,44 +1,43 @@
-<?= form_open('admin/pages/delete');?>
+<?php echo form_open('admin/widgets/manage');?>
+<p>Widgets can be uploaded using your FTP program. When you've finished uploading your widget, simply click the activate button and PyroCMS will automaticly install the widget.</p>
 <table border="0" class="listTable">    
   <thead>
 	<tr>
 		<th class="first"><div></div></th>
-		<th><a href="#"><?=lang('page_page_label');?></a></th>
-		<th><a href="#"><?=lang('page_parent_label');?></a></th>
-		<th><a href="#"><?=lang('page_language_label');?></a></th>
-		<th><a href="#"><?=lang('page_updated_label');?></a></th>
-		<th class="last"><span><?=lang('page_actions_label');?></span></th>
+		<th><a href="#">Name</a></th>
+		<th><a href="#">Area</a></th>
+		<th><a href="#">Activated</a></th>
+		<th class="last"></th>
 	</tr>
   </thead>
-  <tfoot>
-  	<tr>
-  		<td colspan="6">
-  			<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
-  		</td>
-  	</tr>
-  </tfoot>
   <tbody>
-	<? if (!empty($pages)): ?>
-		<? foreach ($pages as $page): ?>
+	<?php if (!empty($this->data->widgets)): ?>
+		<?php foreach ($this->data->widgets as $widget): ?>
 		<tr>
-			<td><input type="checkbox" name="action_to[]" value="<?=$page->id;?>" <?=($page->slug == 'home') ? 'disabled="disabled"' : '' ?> /></td>
-	        <td><?=$page->title;?></td>
-	        <td><?=@$this->pages_m->getById($page->parent, TRUE)->title;?></td>
-	        <td><?=isset($languages[$page->lang]['name']) ? $languages[$page->lang]['name'] : lang('page_unknown_label');?></td>
-	        <td><?= date('M d, Y', $page->updated_on); ?></td>
-	        <td>
-				<?= anchor('/' . $page->slug, lang('page_view_label'), 'target="_blank"') . ' | '; ?>
-				<?= anchor('admin/pages/edit/' . $page->id, lang('page_edit_label')) . ' | '; ?>
-				<?= anchor('admin/pages/delete/' . $page->id, lang('page_delete_label'), array('class'=>'confirm')); ?>
+			<td><input type="checkbox" name="action_to[]" value="<?php echo $widget->id;?>" /></td>
+			<td><?php echo ucfirst(str_replace("_"," ",$widget->name)); ?></td>
+			<td><?php echo ucfirst(str_replace("_"," ",$widget->area)); ?></td>
+			<td><?php if($widget->active === 'true'){echo 'Yes';}else{echo 'No';} ?></td>
+			<td>
+				<?php if($widget->active !== 'true') {echo anchor('admin/widgets/activate/' . $widget->id, 'Activate') . ' | ';} ?>
+				<?php echo anchor('admin/widgets/deactivate/' . $widget->id, 'Deactivate') . ' | '; ?>
+				<?php echo anchor('admin/widgets/delete/' . $widget->id, 'Delete', array('class'=>'confirm')); ?>
 	        </td>
 		</tr>
-		<? endforeach; ?>		
-	<? else: ?>
+		<?php endforeach; ?>		
+	<?php else: ?>
 		<tr>
-			<td colspan="5"><?=lang('page_no_pages');?></td>
+			<td colspan="5">No widgets have been installed yet !</td>
 		</tr>
-	<? endif; ?>
+	<?php endif; ?>
 	</tbody>
+	<tfoot>
+	  	<tr>
+	  		<td colspan="6">
+	  			<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
+	  		</td>
+	  	</tr>
+	  </tfoot>
 </table>
-<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
-<?=form_close(); ?>
+<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<?php echo form_close(); ?>

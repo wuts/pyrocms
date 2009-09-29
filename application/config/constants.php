@@ -111,8 +111,19 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '0.9.6.2');
+define('CMS_VERSION', '0.9.7-pre');
 
+
+/*
+|--------------------------------------------------------------------------
+| PyroCMS Release Date
+|--------------------------------------------------------------------------
+|
+| When was the current version of PyroCMS released?
+|
+*/
+
+define('CMS_DATE','30/08/2009');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

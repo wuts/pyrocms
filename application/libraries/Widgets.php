@@ -30,7 +30,7 @@
  */
 class Widgets {
 	
-	public $CI;
+	private $CI;
 	
 	/**
 	 * Core functions
@@ -45,7 +45,7 @@ class Widgets {
 	}
 
 	
-	// Get a list of all the plugins that are currently activated and execute them
+	// Get a list of all the widgets that are currently activated and execute them
 	public function area($area)
 	{		
 		// Create the query to fetch the names of all activated widgets
@@ -233,7 +233,7 @@ class Widgets {
 	}
 	
 	
-	// Function to get a list of all available areas that are defined in the areas.json file
+	// Function to get a list of all available areas that are defined in the areas.json.
 	function get_areas($path = null)
 	{
 		if($path != null)
@@ -280,42 +280,6 @@ class Widgets {
 		
 		// Log the results
 		log_message('info',"Widgets Library - The following widget has been installed : $name");
-	}
-	
-	
-	// Function to uninstall a widget
-	public function uninstall_widget($id)
-	{
-		// Delete the widget's table row
-		$this->CI->db->delete('widgets',array('id' => strtolower($id)));
-		
-		// Log the results
-		log_message('info',"Widgets Library - The widget with id $id has been uninstalled");
-	}
-	
-	
-	// Function to activate a widget (after it has been installed)
-	public function activate_widget($id)
-	{		
-		// Update it
-		$this->CI->db->where('id',strtolower($id));
-		$this->CI->db->update('widgets',array('active' => 'true'));
-		
-		// Log the results
-		log_message('info',"Widgets Library - The widget with id $id has been disabled");
-	}
-	
-	
-	// Function to deactivate a widget (after it has been activated)
-	public function deactivate_widget($id)
-	{
-		// Update it
-		$this->CI->db->where('id',strtolower($id));
-		$this->CI->db->update('widgets',array('active' => 'false'));
-		
-		// Log the results
-		log_message('info',"Widgets Library - The widget with id $id has been enabled");
-	}
-	
+	}	
 }
 ?>
