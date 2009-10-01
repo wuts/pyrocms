@@ -2,18 +2,20 @@
 <div class="fieldset fieldsetBlock active tabs">
 	<!-- Header div -->
 	<div class="header">
-		<h3>Install Widget</h3>
+		<h3>Install Widget,</h3>
 	</div>
 	<!-- Tabs div -->
 	<div class="tabs">
 		<ul class="clear-box">
-			<li><a href="#fieldset1"><span>Upload Widget</span></a></li>
+			<li><a href="#fieldset1"><span>Available Widgets</span></a></li>
 		</ul>
 		<!-- Install widget fieldset -->
 		<fieldset id="fieldset1">
 			<div class="field">
-				<label for="widget">Widget</label>
-				<input type="file" id="widget" name="widget" value="" />
+				<label for="widgets">Widget</label>
+				<select name="widgets" name="widgets">
+					<option value="feeds">Feeds</option>
+				</select>
 			</div>
 		</fieldset>
 		<!-- Upload widget fieldset -->

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget>
+	<name>Recent News</name>
+	<author>Yorick Peterse - PyroCMS Development Team</author>
+	<desc>This widget displays a list of the latest articles based on a category or date.</desc>
+	<body>{"title":"%TITLE%","article_limit":"%ARTICLE_LIMIT%","display":"%DISPLAY%","year":"%YEAR%","category":"%CATEGORY","show_intro":"%SHOW_INTRO%"}</body>
+	<license>MIT License</license>
+	<version>1.0</version>
+</widget>

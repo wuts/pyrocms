@@ -1,7 +1,7 @@
 <?php
 /*
  * @name 	Recent News Widget
- * @author 	Yorick Peterse
+ * @author 	Yorick Peterse - PyroCMS Development Team
  * @link	http://www.yorickpeterse.com/
  * @package PyroCMS
  * @license MIT License
@@ -9,8 +9,6 @@
  * This widget displays a list of recent articles
  */
 class Recent_news extends Widgets {
-	
-	
 	// Run function
 	function run()
 	{
@@ -45,15 +43,6 @@ class Recent_news extends Widgets {
 				$this->display('recent_news','news_archive_month',$data);
 			break;
 		}		
-	}
-	
-	
-	// Install function (executed when the user installs the widget)
-	function install() 
-	{
-		$name = 'recent_news';
-		$body = '{"title":"Recent News","article_limit":"2","show_intro":"false"}';
-		$this->install_widget($name,$body);
 	}
 }
 ?>

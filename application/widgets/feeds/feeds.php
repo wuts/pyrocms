@@ -1,7 +1,7 @@
 <?php
 /*
  * @name 	RSS Feeds Widget
- * @author 	Yorick Peterse
+ * @author 	Yorick Peterse - PyroCMS Development Team
  * @link	http://www.yorickpeterse.com/
  * @package PyroCMS
  * @license MIT License
@@ -22,7 +22,7 @@ class Feeds extends Widgets {
 		$this->load->library('Simplepie');		
 		
 		// Configure SimplePie
-		$this->simplepie->set_cache_location(APPPATH.'widgets/feeds/cache/');
+		$this->simplepie->set_cache_location(APPPATH.'cache/simplepie/');
 		$this->simplepie->set_feed_url($feed_link);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
@@ -35,15 +35,6 @@ class Feeds extends Widgets {
 		
 		// Load the view file
 		$this->display('feeds','feeds',$data);
-	}
-	
-	
-	// Install function (executed when the user installs the widget)
-	function install() 
-	{
-		$name = 'feeds';
-		$body = '{"title":"RSS Feeds","link":"http://www.yorickpeterse.com/blog/feed/","limit":"2","desc_only":"true","show_date":"true"}';
-		$this->install_widget($name,$body);
 	}
 }
 ?>

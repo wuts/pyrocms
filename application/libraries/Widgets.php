@@ -186,13 +186,13 @@ class Widgets {
 	 */
 	
 	
-	// Function to parse the widgets.json file in each widget directory
-	public function get_widget_info($name,$key = 'all')
+	// Function to parse the widgets.json file in each widget directory. #TODO : Update this since the file format has been changed to XML
+	public function get_info($name,$key = 'all')
 	{
 		if(!empty($name))
 		{
 			// Does the file exist ?
-			if(file_exists(APPPATH ."widgets/$name/widget.json"))
+			if(file_exists(APPPATH ."widgets/$name/widget.xml"))
 			{
 				// Get the JSON string
 				$json_string = file_get_contents(APPPATH ."widgets/$name/widget.json");
@@ -203,59 +203,60 @@ class Widgets {
 				if($key !== 'all')
 				{
 					// Get the single key
-					return $decode[$key];
+					return array((object)$decode[$key]);
 				}
 				else
 				{
 					// Return the results
-					return $decode;
+					return array((object)$decode);
 				}				
 			}
 			else
 			{
-				// Show an error
-				show_error('The widget.json file does not exist!');
-				
 				// Load the error
 				log_message('error','Widgets Library - The widget.json file does not exist!');
-				exit();
+				return FALSE;
 			}
 		}
 		else
 		{
-			// Show an error
-			show_error('No widget name has been specified!');
-			
 			// Log the error
 			log_message('error','Widgets Library - No widget name has been specified!');
-			exit();
+			return FALSE;
 		}
 	}
 	
 	
-	// Function to get a list of all available areas that are defined in the areas.json.
-	function get_areas($path = null)
+	// Function to get a list of all available areas that are defined in the areas.json based on the template. #TODO : Update this since the file format has been changed to XML
+	function get_areas($template)
 	{
-		if($path != null)
+		if($template)
 		{
-			// Get the json file
-			$json_string = file_get_contents(APPPATH.$path);	
+			$path = APPPATH . 'themes/' . $template . '/areas.json';
 			
-			// Decode it	
-			$decode = json_decode($json_string,true);
+			if(file_exists($path))
+			{
+				// Get the json file
+				$json_string = file_get_contents($path);	
+
+				// Decode it	
+				$decode = json_decode($json_string,true);
+
+				// Return it	
+				return $decode;
+			}
+			else
+			{
+				return FALSE;
+			}
 			
-			// Return it	
-			return $decode;
 		}
 		else
-		{
-			// Show an error
-			show_error('The areas.json file could not be found!');
-			
+		{		
 			// Log the error
 			log_message('error','WIdgets Library - Areas.json could not be found');
+			return FALSE;
 		}
-		
 	}	
 	
 	/**
@@ -269,17 +270,7 @@ class Widgets {
 	// Function to install a widget, should only be triggered once
 	public function install_widget($name,$body)
 	{
-		// Set the fields
-		$data['id']		= 'id';
-		$data['name'] 	= strtolower($name);
-		$data['body'] 	= $body;
-		$data['active'] = 'false';
 		
-		// Query to create the row for the widget
-		$this->CI->db->insert('widgets',$data);
-		
-		// Log the results
-		log_message('info',"Widgets Library - The following widget has been installed : $name");
 	}	
 }
 ?>

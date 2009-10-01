@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget>
+	<name>Navigation</name>
+	<author>Yorick Peterse - PyroCMS Development Team</author>
+	<desc>This widget displays a list of navigation items based on the chosen navigation group.</desc>
+	<body>{"title":"%TITLE%","group":"%GROUP%"}</body>
+	<license>MIT License</license>
+	<version>1.0</version>
+</widget>

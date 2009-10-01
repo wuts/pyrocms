@@ -47,14 +47,5 @@ class Navigation extends Widgets {
 		$this->display('navigation','navigation_view',$data);
 		
 	}
-	
-	
-	// Install function (executed when the user installs the widget)
-	function install() 
-	{
-		$name = 'navigation';
-		$body = '{"title":"Navigation","group":"sidebar"}';
-		$this->install_widget($name,$body);
-	}
 }
 ?>

@@ -24,14 +24,5 @@ class Social_bookmarks extends Widgets {
 		// Then load the view file
 		$this->display('social_bookmarks','bookmarks',$data);
 	}
-	
-	
-	// Install function (executed when the user installs the widget)
-	function install() 
-	{
-		$name = 'social_bookmarking';
-		$body = '';
-		$this->install_widget($name,$body);
-	}
 }
 ?>

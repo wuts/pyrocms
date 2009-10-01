@@ -9,8 +9,6 @@
  * Twitter widget to display your latest tweets
  */
 class Twitter extends Widgets {
-	
-	
 	// Run function
 	function run()
 	{
@@ -26,15 +24,6 @@ class Twitter extends Widgets {
 		
 		// Load the view file 
 		$this->display('twitter','twitter',$data);
-	}
-	
-	
-	// Install function (executed when the user installs the widget)
-	function install() 
-	{
-		$name = 'twitter';
-		$body = '{"title":"Twitter","display":"friends_timeline","limit":"5","show_image":"true"}';
-		$this->install_widget($name,$body);
 	}
 }
 ?>

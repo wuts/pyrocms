@@ -1,6 +1,0 @@
-{
-	"name"			:	"RSS Feeds",
-    "author"		:	"Yorick Peterse",
-    "description"	:	"This widget displays a list of external RSS or Atom feeds using SimplePie.",
-    "license"		:	"MIT License"
-}

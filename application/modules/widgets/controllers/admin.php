@@ -13,56 +13,52 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->model('widgets_m');
+		$this->load->library('Widgets');
 		$this->data->languages 	=& $this->config->item('supported_languages');
 	}
 	
 	// Index function
 	function index()
 	{
-		$this->data->widgets 	= $this->widgets_m->getWidgets();
+		$this->data->widgets_data 	= $this->widgets_m->getWidgets();
 		$this->layout->create('admin/index', $this->data);
 	}
 	
 	// Activation function
 	function activate()
 	{
-		// Get the widget ID
-		$id 	= $this->uri->segment(4);
-		$name 	= $this->uri->segment(5);
+		$id = $this->uri->segment(4);
 		
-		if(isset($id) AND is_numeric($id))
-		{		
-			// Activate the widget if it exists
-			$result = $this->widgets_m->updateWidget($id,array('active' => 'TRUE'));
+		// I can has POST data ? 
+		if($_POST)
+		{
+			$results = $this->widgets_m->updateWidget('instance',$id,array('area' => $_POST['area']));
 			
-			// TODO : Might need to slightly update the part below.
-			if($result == TRUE)
+			if($results == TRUE)
 			{
-				// And redirect the user back to the widget index page
-				$this->session->set_flashdata('success', 'The selected widget(s) have been activated.');
+				$this->session->set_flashdata('success', 'The chosen widget has been assigned to the specified area.');
 				redirect('admin/widgets/index');
 			}
 			else
 			{
-				// Create the table
-				$result = $this->widgets_m->installWidget($name);
-				if($result == TRUE)
-				{
-					// Widget installed
-					$this->session->set_flashdata('success', 'The selected widget(s) have been activated.');
-					redirect('admin/widgets/index');
-				}
-				else
-				{
-					// Widget could not be installed
-					$this->session->set_flashdata('error', 'Caramba ! The selected widget(s) could not be activated.');
-					redirect('admin/widgets/index');
-				}
-			}		
+				$this->session->set_flashdata('error', 'The chosen widget could not be assigned to the specified area.');
+				redirect('admin/widgets/activate/' . $id);
+			}
+		}
+		
+		// Get widget related data
+		if(isset($id) AND is_numeric($id))
+		{
+			$widgets						= $this->widgets_m->getWidgets(array('id' => $id));
+			$this->data->widgets_data 		= $this->widgets->get_info($widgets[0]->name);
+			$this->data->template_areas 	= $this->widgets->get_areas('default');
+
+			// Create the layout
+			$this->layout->create('admin/activate', $this->data);
 		}
 		else
 		{
-			$this->session->set_flashdata('error', 'The specified widget ID is an invalid ID.');
+			$this->session->set_flashdata('error', 'You did not specify an widget ID.');
 			redirect('admin/widgets/index');
 		}
 	}
@@ -76,7 +72,7 @@ class Admin extends Admin_Controller
 		if(isset($id) AND is_numeric($id))
 		{
 			// Deactivate the widget
-			$result = $this->widgets_m->updateWidget($id,array('active' => 'false'));
+			$result = $this->widgets_m->updateWidget('instance',$id,array('delete' => TRUE));
 			
 			if($result == TRUE)
 			{
@@ -97,16 +93,41 @@ class Admin extends Admin_Controller
 		}
 	}
 	
-	// Installation function
+	// Installation function. #TODO
 	function install()
 	{
 		$this->layout->create('admin/install', $this->data);
 	}
 	
+	// Edit function. #TODO
+	function edit()
+	{
+		$this->layout->create('admin/edit',$this->data);
+	}
+	
 	// Uninstallation function
 	function delete()
 	{
+		// Get the widget ID
+		$id = $this->uri->segment(4);
 		
+		if(isset($id) AND is_numeric($id))
+		{
+			// Delete the instance
+			$instance = $this->widgets_m->updateWidget('instance',$id,array('delete' => TRUE));	
+			// Only delete the widget if the instance was deleted as well
+			if($instance == TRUE)
+			{
+				$widget = $this->widgets_m->updateWidget('widget',$id,array('delete' => TRUE));	
+				
+				// Validate the results
+				if($instance == TRUE AND $widget == TRUE)
+				{
+					// Database has been cleaned, time to delete the files
+					// #TODO
+				}
+			}
+		}
 	}
 }
 ?>

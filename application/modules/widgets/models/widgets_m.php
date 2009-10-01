@@ -8,7 +8,7 @@
  */
 class Widgets_m extends Model
 {
-	// Get a list of widgets based on their state (active / deactive)
+	// Get a list of widgets based on the parameters defined by the user.
 	function getWidgets($params = array())
 	{
 		// Create the query
@@ -16,8 +16,21 @@ class Widgets_m extends Model
 		
 		// Validate the results
 		if($query->num_rows() > 0)
-		{
-			return $query->result();
+		{			
+			// Dirty as hell, but works perfect.
+			$result = $query->result();
+			$rows 	= count($result);
+			$i 		= 0;
+			
+			// Loop through each row
+			while($i < $rows)
+			{
+				$result[$i]->area = $this->getInstanceData($result[$i]->id,'area');
+				$i++;
+			}
+			
+			// Return the results
+			return $result;
 		}
 		else
 		{
@@ -25,18 +38,85 @@ class Widgets_m extends Model
 		}
 	}
 	
-	// Function to change the fields of a widget
-	function updateWidget($id,$params = array())
+	// Function to retrieve data from the widget instance (area / active)
+	function getInstanceData($widget_id,$field)
+	{
+		if(isset($widget_id) AND is_numeric($widget_id))
+		{
+			// Query time
+			$query = $this->db->get_where('widget_instances',array('widget_id' => $widget_id));
+			
+			// Return the results
+			if($query->num_rows() > 0)
+			{
+				foreach($query->result() as $result)
+				{
+					return $result->$field;
+				}
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	// Big fat update functions :]
+	function updateWidget($type = 'widget',$widget_id,$params = array())
 	{
 		// Terminate the function if the ID isn't specified or when it isn't numeric.
-		if(isset($id) AND is_numeric($id))
+		if(isset($widget_id) AND is_numeric($widget_id) AND isset($type))
 		{
-			$query = $this->db->update('widgets',$params,"id = $id");
-			
-			if($query != FALSE)
+			if($type == 'widget')
 			{
+				if($params['delete'] == TRUE)
+				{
+					$this->db->where('id',$widget_id);
+					$query = $this->db->delete('widgets');
+				}
+				else
+				{
+					$this->db->where('id',$widget_id);
+					$query = $this->db->update('widgets',$params);
+				}			
+				
+				return $query; // Returns false or true
+			}
+			elseif($type == 'instance')
+			{
+				$query = $this->db->get_where('widget_instances',array('widget_id' => $widget_id));
+				
+				// The widget has already been activated but the user wants to change the area
+				if($query->num_rows() > 0)
+				{
+					$this->db->where('widget_id',$widget_id);
+					
+					// Delete or update ? 
+					if($params['delete'] == TRUE)
+					{
+						$query = $this->db->delete('widget_instances');
+					}
+					else
+					{
+						$query = $this->db->update('widget_instances',$params);
+					}					
+					
+					return $query; // Returns false or true
+				}
+				// The user activated the widget for the first time and wants to add it to a certain area
+				else
+				{
+					$query = $this->db->insert('widget_instances',array('widget_id' => $widget_id,'body' => '','area' => $params['area']));
+					
+					return $query; // Returns false or true
+				}
 				return TRUE;
 			}
+			// $type not reconized
 			else
 			{
 				return FALSE;
