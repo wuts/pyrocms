@@ -15,8 +15,8 @@
 			<fieldset id="fieldset1">
 				<div class="field">
 					<label for="area">Widget Area</label>
-					<select id="area" name="area"><?php foreach($this->data->template_areas as $area): ?>
-						<option value="<?php echo $area; ?>"><?php echo $area; ?></option><?php endforeach; ?>
+					<select id="area" name="area"><?php foreach($this->data->template_areas as $key => $value): ?>
+						<option value="<?php echo $value; ?>"><?php echo $value; ?></option><?php endforeach; ?>
 					</select>
 				</div>
 			</fieldset>
@@ -24,7 +24,7 @@
 			<fieldset id="fieldset2">
 				<?php foreach($this->data->widgets_data as $widget): ?>
 					<strong><?php echo $widget->name; ?>, by <?php echo $widget->author; ?></strong>
-					<p><?php echo $widget->description; ?></p>
+					<p><?php echo $widget->desc; ?></p>
 					<p>This widget is licensed under the <?php echo $widget->license; ?> license.</p>
 				<?php endforeach; ?>
 			</fieldset>

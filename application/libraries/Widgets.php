@@ -39,7 +39,7 @@ class Widgets {
 	 *
 	 */
 	
-	function Widgets()
+	function __construct()
 	{
 		$this->CI =& get_instance();
 	}
@@ -169,7 +169,6 @@ class Widgets {
 		// Turn the results into a single array
 		foreach($results as $row)
 		{
-
 			// Decode the JSON string into an associative array
 			$array 	= json_decode($row['body'],true);						
 
@@ -195,26 +194,22 @@ class Widgets {
 			if(file_exists(APPPATH ."widgets/$name/widget.xml"))
 			{
 				// Get the JSON string
-				$json_string = file_get_contents(APPPATH ."widgets/$name/widget.json");
+				$widget_xml = file_get_contents(APPPATH ."widgets/$name/widget.xml");
+				$SimpleXML = new SimpleXMLElement($widget_xml);
 				
-				// Decode it
-				$decode = json_decode($json_string,true);
-				
-				if($key !== 'all')
+				if($key == 'all')
 				{
-					// Get the single key
-					return array((object)$decode[$key]);
+					return array($SimpleXML);
 				}
 				else
 				{
-					// Return the results
-					return array((object)$decode);
+					return array($SimpleXML->$key);
 				}				
 			}
 			else
 			{
 				// Load the error
-				log_message('error','Widgets Library - The widget.json file does not exist!');
+				log_message('error','Widgets Library - The widget.xml file could not be found.');
 				return FALSE;
 			}
 		}
@@ -232,29 +227,25 @@ class Widgets {
 	{
 		if($template)
 		{
-			$path = APPPATH . 'themes/' . $template . '/areas.json';
+			$path = APPPATH . 'themes/' . $template . '/areas.xml';
 			
 			if(file_exists($path))
 			{
-				// Get the json file
-				$json_string = file_get_contents($path);	
-
-				// Decode it	
-				$decode = json_decode($json_string,true);
-
-				// Return it	
-				return $decode;
+				// Bring in SimpleXML
+				$areas 	   = file_get_contents($path);
+				$SimpleXML = new SimpleXMLElement($areas);
+				
+				return $SimpleXML;
 			}
 			else
 			{
 				return FALSE;
 			}
-			
 		}
 		else
 		{		
 			// Log the error
-			log_message('error','WIdgets Library - Areas.json could not be found');
+			log_message('error','Widgets Library - The areas.xml file could not be found.');
 			return FALSE;
 		}
 	}	

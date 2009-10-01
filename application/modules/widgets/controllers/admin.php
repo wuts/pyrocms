@@ -32,7 +32,7 @@ class Admin extends Admin_Controller
 		// I can has POST data ? 
 		if($_POST)
 		{
-			$results = $this->widgets_m->updateWidget('instance',$id,array('area' => $_POST['area']));
+			$results = $this->widgets_m->updateWidget($id,array('area' => $_POST['area']));
 			
 			if($results == TRUE)
 			{
@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
 		if(isset($id) AND is_numeric($id))
 		{
 			// Deactivate the widget
-			$result = $this->widgets_m->updateWidget('instance',$id,array('delete' => TRUE));
+			$result = $this->widgets_m->updateWidget($id,array('area' => ''));
 			
 			if($result == TRUE)
 			{

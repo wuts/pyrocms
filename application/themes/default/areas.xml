@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <areas>
-	<area>header</area>
-	<area>sidebar</area>
-	<area>footer</area>
-	<area>after_content</area>
-<areas>
+	<area1>header</area1>
+	<area2>sidebar</area2>
+	<area3>footer</area3>
+	<area4>after_content</area4>
+</areas>
