@@ -93,13 +93,13 @@ class Admin extends Admin_Controller
 		}
 	}
 	
-	// Installation function. #TODO
+	// Installation function. TODO: Add the install function
 	function install()
 	{
 		$this->layout->create('admin/install', $this->data);
 	}
 	
-	// Edit function. #TODO
+	// Edit function. TODO: Add the edit function
 	function edit()
 	{
 		$this->layout->create('admin/edit',$this->data);
@@ -124,7 +124,7 @@ class Admin extends Admin_Controller
 				if($instance == TRUE AND $widget == TRUE)
 				{
 					// Database has been cleaned, time to delete the files
-					// #TODO
+					// TODO: Add the file deleting process
 				}
 			}
 		}
