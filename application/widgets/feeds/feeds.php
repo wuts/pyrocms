@@ -22,7 +22,7 @@ class Feeds extends Widgets {
 		$this->load->library('Simplepie');		
 		
 		// Configure SimplePie
-		$this->simplepie->set_cache_location(APPPATH.'cache/simplepie/');
+		$this->simplepie->set_cache_location(APPPATH.'cache/simplepie');
 		$this->simplepie->set_feed_url($feed_link);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
