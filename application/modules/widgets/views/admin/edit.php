@@ -1,23 +1,20 @@
-<?php echo form_open('admin/widgets/activate/' . $this->uri->segment(4));?>
+<?php echo form_open('admin/widgets/edit/' . $this->uri->segment(4));?>
 	<div class="fieldset fieldsetBlock active tabs">
-		<p>Choose an area in which the widget should be displayed. You can also view more information about the selected widget by clicking the "Widget Details" tab.</p>
+		<p>Here you can edit the data of an existing widget. You can also view more information about the selected widget by clicking the "Widget Details" tab.</p>
 		<!-- Header div -->
 		<div class="header">
-			<h3>Activate Widget</h3>
+			<h3>Edit Widget</h3>
 		</div>
 		<!-- Tabs div -->
 		<div class="tabs">
 			<ul class="clear-box">
-				<li><a href="#fieldset1"><span>Activate Widget</span></a></li>
+				<li><a href="#fieldset1"><span>Edit Widget</span></a></li>
 				<li><a href="#fieldset2"><span>Widget Details</span></a></li>
 			</ul>
-			<!-- Activate widget fieldset -->
+			<!-- Edit widget fieldset -->
 			<fieldset id="fieldset1">
 				<div class="field">
-					<label for="area">Widget Area</label>
-					<select id="area" name="area"><?php foreach($this->data->template_areas as $key => $value): ?>
-						<option value="<?php echo $value; ?>"><?php echo $value; ?></option><?php endforeach; ?>
-					</select>
+				
 				</div>
 			</fieldset>
 			<!-- Widget details fieldset -->

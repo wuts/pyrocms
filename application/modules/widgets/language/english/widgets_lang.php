@@ -1,6 +1,5 @@
 <?php
 /** 
- * @name 		Widgets Language file
  * @package 	PyroCMS
  * @subpackage 	Widgets
  * @author 		Yorick Peterse - PyroCMS Development Team

@@ -2,7 +2,7 @@
 <div class="fieldset fieldsetBlock active tabs">
 	<!-- Header div -->
 	<div class="header">
-		<h3>Install Widget,</h3>
+		<h3>Install Widget</h3>
 	</div>
 	<!-- Tabs div -->
 	<div class="tabs">

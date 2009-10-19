@@ -1,10 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * @name 		Widgets Admin Controller
  * @package 	PyroCMS
  * @subpackage 	Widgets
  * @author		Yorick Peterse - PyroCMS Development Team
  * @since		v1.0
+ *
+ * Widgets controller for the widgets module. Makes sense right ? 
  */
 class Admin extends Admin_Controller
 {
@@ -102,31 +103,99 @@ class Admin extends Admin_Controller
 	// Edit function. TODO: Add the edit function
 	function edit()
 	{
-		$this->layout->create('admin/edit',$this->data);
+		$id = $this->uri->segment(4);
+		
+		// Get widget related data
+		if(isset($id) AND is_numeric($id))
+		{
+			$widgets						= $this->widgets_m->getWidgets(array('id' => $id));
+			$this->data->widgets_data 		= $this->widgets->get_info($widgets[0]->name);
+
+			// Create the layout
+			$this->layout->create('admin/edit',$this->data);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'You did not specify an widget ID.');
+			redirect('admin/widgets/index');
+		}
 	}
 	
 	// Uninstallation function
 	function delete()
-	{
-		// Get the widget ID
-		$id = $this->uri->segment(4);
-		
-		if(isset($id) AND is_numeric($id))
+	{		
+		// Get the widget ID based on the URL or POST data
+		if($_POST)
 		{
-			// Delete the instance
-			$instance = $this->widgets_m->updateWidget('instance',$id,array('delete' => TRUE));	
-			// Only delete the widget if the instance was deleted as well
-			if($instance == TRUE)
+			$id = $_POST['action_to'];
+		}
+		else
+		{
+			$id = $this->uri->segment(4);
+		}
+		
+		// ID specified ? 
+		if(isset($id))
+		{
+			// Removing multiple widgets
+			if(is_array($id))
 			{
-				$widget = $this->widgets_m->updateWidget('widget',$id,array('delete' => TRUE));	
-				
-				// Validate the results
-				if($instance == TRUE AND $widget == TRUE)
+				// Loop through each widget
+				foreach($id as $key => $value)
 				{
-					// Database has been cleaned, time to delete the files
-					// TODO: Add the file deleting process
+					// Get the name of the widget
+					$query = $this->widgets_m->getWidgets(array('id' => $value));
+					
+					if($query != FALSE)
+					{
+						// Capitalize it and replace the underscore with a space.
+						$widget_name = ucfirst(str_replace('_',' ',$query[0]->name)); 
+						
+						// Remove the widget
+						$status = $this->widgets_m->removeWidget($value);
+						
+						// Get the midgets, PyroCMS failed to remove the widget !
+						if($status == FALSE)
+						{						
+							// Something went wrong...
+							$this->session->set_flashdata('error', 'The ' . $widget_name . ' widget with ID #' . $value . ' could not be uninstalled !');
+							redirect('admin/widgets/index');
+						}
+					}
+					else
+					{
+						$this->session->set_flashdata('error', 'It seems that the selected widget with ID #' . $value . ' does not exist !');
+						redirect('admin/widgets/index');
+					}
 				}
+				
+				// Success...
+				$this->session->set_flashdata('success', 'The selected widgets have been uninstalled. Don\'t forget to remove the folders as well !');
+				redirect('admin/widgets/index');				
 			}
+			// Just remove a single widget
+			else
+			{
+				$status = $this->widgets_m->removeWidget($id);
+				
+				if($status == TRUE)
+				{
+					// Success...
+					$this->session->set_flashdata('success', 'The selected widget has been uninstalled. Don\'t forget to remove the folder as well !');
+					redirect('admin/widgets/index');
+				}
+				else
+				{
+					// Something went wrong...
+					$this->session->set_flashdata('error', 'The selected widget could not be uninstalled !');
+					redirect('admin/widgets/index');
+				}	
+			}
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'No widget ID has been specified !');
+			redirect('admin/widgets/index');
 		}
 	}
 }

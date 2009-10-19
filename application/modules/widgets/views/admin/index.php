@@ -1,4 +1,4 @@
-<?php echo form_open('admin/widgets/manage');?>
+<?php echo form_open('admin/widgets/delete');?>
 <p>Widgets can be uploaded using your FTP program. When you've finished uploading your widget, simply click the activate button and PyroCMS will automaticly install the widget.</p>
 <table border="0" class="listTable">    
   <thead>
