@@ -109,7 +109,8 @@ class Admin extends Admin_Controller
 		if(isset($id) AND is_numeric($id))
 		{
 			$widgets						= $this->widgets_m->getWidgets(array('id' => $id));
-			$this->data->widgets_data 		= $this->widgets->get_info($widgets[0]->name);
+			$this->data->widgets			= $widgets; // Widget data from the database
+			$this->data->widgets_info		= $this->widgets->get_info($widgets[0]->name); // Widget data from the file system
 
 			// Create the layout
 			$this->layout->create('admin/edit',$this->data);

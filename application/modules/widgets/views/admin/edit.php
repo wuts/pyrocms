@@ -13,15 +13,35 @@
 			</ul>
 			<!-- Edit widget fieldset -->
 			<fieldset id="fieldset1">
-				<div class="field">
+				<?php foreach($this->data->widgets as $widget): ?>
+					
+				<?php foreach($widget as $key => $value): ?>
+					
+					<?php if($key == 'body'): $json_array = json_decode($value,TRUE); ?>
+						
+					<?php foreach($json_array as $json_key => $json_value): ?>
+					<div class="field">
+						<label for="<?php echo $json_key; ?>"><?php echo ucfirst(str_replace('_',' ',$json_key)); ?></label>
+						<input type="text" id="<?php echo $json_key; ?>" name="" value="<?php echo $json_value; ?>" />
+					</div>
+					<?php endforeach; ?>
+						
+					<?php else: if($key != 'name'): ?>						
+					<div class="field"> 
+						<label for="<?php echo $key; ?>"><?php echo ucfirst(str_replace('_',' ',$key)); ?></label>
+						<input type="text" id="<?php echo $key; ?>" name="" value="<?php echo $value; ?>" />
+					</div>					
+					<?php endif; endif; ?>
 				
-				</div>
+				<?php endforeach; ?>
+					
+				<?php endforeach; ?>
 			</fieldset>
 			<!-- Widget details fieldset -->
 			<fieldset id="fieldset2">
-				<?php foreach($this->data->widgets_data as $widget): ?>
-					<p><strong><?php echo $widget->name; ?>, by <?php echo $widget->author; ?></strong></p>
-					<p><?php echo $widget->desc; ?> The widget is licensed under the <?php echo $widget->license; ?> license.</p>
+				<?php foreach($this->data->widgets_info as $widget_info): ?>
+					<p><strong><?php echo $widget_info->name; ?>, by <?php echo $widget_info->author; ?></strong></p>
+					<p><?php echo $widget_info->desc; ?> The widget is licensed under the <?php echo $widget_info->license; ?> license.</p>
 				<?php endforeach; ?>
 			</fieldset>
 		</div>

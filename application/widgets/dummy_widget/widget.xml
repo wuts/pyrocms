@@ -1,6 +1,10 @@
-{
-	"name"			:	"Dummy Widget",
-    "author"		:	"Yorick Peterse",
-    "description"	:	"This is a dummy widget.",
-    "license"		:	"MIT License"
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<widget>
+	<name></name>
+	<author></author>
+	<desc></desc>
+	<!-- Please note that the body field MUST BE a JSON formatted string. The body is only used during installation and acts as a "template".  -->
+	<body>{"title":"%TITLE%","link":"%LINK%","limit":"%LIMIT%","desc_only":"%DESC_ONLY%","show_date":"%SHOW_DATE%"}</body>
+	<license></license>
+	<version></version>
+</widget>
