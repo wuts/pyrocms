@@ -24,7 +24,8 @@
 			<fieldset id="fieldset2">
 				<?php foreach($this->data->widgets_data as $widget): ?>
 					<p><strong><?php echo $widget->name; ?>, by <?php echo $widget->author; ?></strong></p>
-					<p><?php echo $widget->desc; ?> The widget is licensed under the <?php echo $widget->license; ?> license.</p>
+					<p><?php echo $widget->desc; ?></p>
+					<p>The widget is licensed under the <?php echo $widget->license; ?> license.</p>
 				<?php endforeach; ?>
 			</fieldset>
 		</div>

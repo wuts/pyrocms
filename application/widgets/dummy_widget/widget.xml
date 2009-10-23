@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets>
+	<widget>
+		<name>__WIDGET-NAME__</name>
+		<author>__WIDGET-AUTHOR__</author>
+		<desc>__WIDGET-DESC__</desc>
+		<body>
+			<param name="__PARAM__" >__DEFAULT-VALUE__</param>
+		</body>
+		<license>MIT License</license>
+		<version>1.0</version>
+	</widget>
+</widgets>

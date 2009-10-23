@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget>
-	<name>RSS Feeds</name>
-	<author>Yorick Peterse - PyroCMS Development Team</author>
-	<desc>This widget displays a list of external RSS or Atom feeds using SimplePie.</desc>
-	<body>{"title":"%TITLE%","link":"%LINK%","limit":"%LIMIT%","desc_only":"%DESC_ONLY%","show_date":"%SHOW_DATE%"}</body>
-	<license>MIT License</license>
-	<version>1.0</version>
-</widget>
+<widgets>
+	<widget>
+		<name>RSS Feeds</name>
+		<author>PyroCMS Development Team</author>
+		<desc>This widget displays a list of external RSS or Atom feeds using SimplePie.</desc>
+		<body>
+			<param name="title">RSS Feeds</param>
+			<param name="link">http://www.pyrocms.com/blog/rss</param>
+			<param name="limit">2</param>
+			<param name="desc_only">TRUE</param>
+			<param name="show_date">TRUE</param>
+		</body>
+		<license>MIT License</license>
+		<version>1.0</version>
+	</widget>
+</widgets>

@@ -5,6 +5,7 @@
 	<tr>
 		<th class="first"><div></div></th>
 		<th><a href="#">Name</a></th>
+		<th><a href="#">Title</a></th>
 		<th><a href="#">Area</a></th>
 		<th><a href="#">Actions</a></th>
 		<th class="last"></th>
@@ -16,8 +17,10 @@
 		<tr>
 			<td><input type="checkbox" name="action_to[]" value="<?php echo $widget->id;?>" /></td>
 			<td><?php echo ucfirst(str_replace("_"," ",$widget->name)); ?></td>
+			<td><?php $body = unserialize($widget->body); echo $body['title']; ?></td>
 			<td><?php if($widget->area){echo ucfirst(str_replace("_"," ",$widget->area));}else{echo "None";} ?></td>
 			<td>
+				<?php echo anchor('admin/widgets/details/' . $widget->id, 'Details',array('rel' => 'modal')) . ' | '; ?>
 				<?php if(!$widget->area) {echo anchor('admin/widgets/activate/' . $widget->id, 'Activate') . ' | ';} ?>
 				<?php if($widget->area) {echo anchor('admin/widgets/deactivate/' . $widget->id, 'Deactivate') . ' | ';} ?>
 				<?php echo anchor('admin/widgets/edit/' . $widget->id, 'Edit'). ' | '; ?>

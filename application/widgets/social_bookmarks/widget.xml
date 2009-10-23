@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget>
-	<name>Social Bookmarking</name>
-	<author>Yorick Peterse - PyroCMS Development Team</author>
-	<desc>Widget to display a set of links that can be used to share the current page with external social services.</desc>
-	<body>{"title":"%TITLE%","twitter":"%TWITTER%"}</body>
-	<license>MIT License</license>
-	<version>1.0</version>
-</widget>
+<widgets>
+	<widget>
+		<name>Social Bookmarking</name>
+		<author>PyroCMS Development Team</author>
+		<desc>Widget to display a set of links that can be used to share the current page with external social services.</desc>
+		<body>
+			<param name="title">Social Bookmarking</param>
+			<param name="services">
+				<subparam>twitter</subparam>
+				<subparam>Digg</subparam>
+				<subparam>Reddit</subparam>
+			</param>
+		</body>
+		<license>MIT License</license>
+		<version>1.0</version>
+	</widget>
+</widgets>
