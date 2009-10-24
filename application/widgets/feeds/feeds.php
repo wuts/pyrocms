@@ -12,11 +12,11 @@ class Feeds extends Widgets {
 	
 	
 	// Run function
-	function run()
+	function run($__widget)
 	{
 		// Set some variables
-		$feed_link  = $this->get_data('feeds','link');
-		$limit 		= $this->get_data('feeds','limit');
+		$feed_link  = $this->get_data($__widget,'link');
+		$limit 		= $this->get_data($__widget,'limit');
 		
 		// Load the SimplePie library
 		$this->load->library('Simplepie');		
@@ -29,12 +29,12 @@ class Feeds extends Widgets {
 		
 		// Set some variables for the view file
 		$data['items'] 		= $this->simplepie->get_items(0,$limit);
-		$data['title'] 		= $this->simplepie->get_data('feeds','title');
-		$data['desc_only']  = $this->simplepie->get_data('feeds','desc_only');
-		$data['show_date']  = $this->simplepie->get_data('feeds','show_date');
+		$data['title'] 		= $this->get_data($__widget,'title');
+		$data['desc_only']  = $this->get_data($__widget,'desc_only');
+		$data['show_date']  = $this->get_data($__widget,'show_date');
 		
 		// Load the view file
-		$this->display('feeds','feeds',$data);
+		$this->display($__widget,'feeds',$data);
 	}
 }
 ?>

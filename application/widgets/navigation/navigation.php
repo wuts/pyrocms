@@ -12,11 +12,11 @@ class Navigation extends Widgets {
 	
 	
 	// Run function
-	function run()
+	function run($__widget)
 	{
 		// Get the title for the widget (as defined by the user) and the link group slug
-		$data['title'] 	= $this->get_data('navigation','title');
-		$group_name	   	= $this->get_data('navigation','group');
+		$data['title'] 	= $this->get_data($__widget,'title');
+		$group_name	   	= $this->get_data($__widget,'group');
 		
 		// Get the ID that belongs to the group's slug
 		$this->CI->db->select('id');
@@ -44,8 +44,7 @@ class Navigation extends Widgets {
 		}		
 		
 		// Load the view file
-		$this->display('navigation','navigation_view',$data);
-		
+		$this->display($__widget,'navigation_view',$data);
 	}
 }
 ?>

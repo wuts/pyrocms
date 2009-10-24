@@ -11,18 +11,18 @@
 class Social_bookmarks extends Widgets {
 	
 	// Run function
-	function run()
+	function run($__widget)
 	{
 		// First fetch the current URL and title
 		$data['current_url'] = current_url();
 		$data['current_title'] = '';
 		
 		// Then set some extra variables
-		$data['title'] = $this->get_data('social_bookmarks','title');
-		$data['links'] = $this->get_data('social_bookmarks','links');
+		$data['title'] = $this->get_data($__widget,'title');
+		$data['links'] = $this->get_data($__widget,'links');
 		
 		// Then load the view file
-		$this->display('social_bookmarks','bookmarks',$data);
+		$this->display($__widget,'bookmarks',$data);
 	}
 }
 ?>

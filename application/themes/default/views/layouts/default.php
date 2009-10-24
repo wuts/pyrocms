@@ -41,23 +41,7 @@
 				<!-- The sidebar -->
 				<div id="sidebar">
 					<!-- Widget area : Sidebar -->
-					<ul class="widget_area sidebar">
-						<!-- Recent news widget -->
-						<li class="widget recent_news">
-							<ul>
-								<li>
-									<h3><a href="#" title="Article 1">Article 1</a></h3>
-									<p class="article_date">Posted at 27th August, 2009</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat cursus lacinia.</p> 
-								</li>
-								<li>
-									<h3><a href="#" title="Article 2">Article 2</a></h3>
-									<p class="article_date">Posted at 27th August, 2009</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat cursus lacinia.</p> 
-								</li>
-							</ul>
-						</li>
-					</ul>
+					<?php $this->widgets->area('sidebar'); ?>
 				</div> 
 				<div class="clear"></div>
 			</div> 

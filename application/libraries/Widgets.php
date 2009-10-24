@@ -1,15 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 
- * @author 	Yorick Peterse
- * @link	http://www.yorickpeterse.com/	
- * @license	MIT License
- * 
- * Widgets library for PyroCMS. The library handles the frontend only.
+ * @author 	Yorick Peterse - PyroCMS Development Team	
+ * @since 	v0.9.8
+ *
+ * The widgets library handles the frontend of PyroCMS widget system.
  */
 class Widgets {	
 	// Variables
-	private $CI;
+	public $CI;
 	
 	function __construct()
 	{
@@ -20,9 +18,7 @@ class Widgets {
 	function area($area)
 	{
 		// First we need to fetch all activated widgets for the chosen area
-		$this->CI->db->select('name,area');
-		$this->CI->join('widget_instances','widgets.id = widget_instances.widget_id');
-		$query = $this->CI->db->get_where('widgets',array('widget_instances.area' => $area));
+		$query = $this->CI->db->query("SELECT widget_instances.id AS instance_id,widget_instances.widget_id AS widget_id,widget_instances.area AS widget_area,widgets.name AS widget_name FROM widgets JOIN widget_instances on widgets.id = widget_instances.widget_id WHERE widget_instances.area = '$area'");
 		
 		// Verify the results
 		if($query->num_rows() > 0)
@@ -37,25 +33,25 @@ class Widgets {
 			foreach($widgets as $widget)
 			{				
 				// Only run the widgets for the current area
-				if($widget->area == $area)
-				{
+				if($widget->widget_area == $area)
+				{					
 					// Validate whether the widget really exists
-					if(file_exists(APPPATH . "widgets/$name/$name.php") == TRUE)
+					if(file_exists(APPPATH . "widgets/$widget->widget_name/$widget->widget_name.php") == TRUE)
 					{
 						// Open the widget
-						require_once(APPPATH . "widgets/$name/$name.php");
+						require_once(APPPATH . "widgets/$widget->widget_name/$widget->widget_name.php");
 
 						// First letter needs to be uppercase, in case the user forgets this
-						$class  = ucfirst($name);
+						$class  = ucfirst($widget->widget_name);
 
 						// Create the widget class
-						$widget = new $class();			
+						$widget_obj = new $class();			
 
 						// Verify if we can actually call the function at all
 						if(is_object($widget))
-						{		
-							// Execute the run() function with the specified arguements
-							return $widget->run();
+						{								
+							// Run the widget
+							$widget_obj->run(array('instance_id' => $widget->instance_id,'widget_name' => $widget->widget_name));
 						}
 						else
 						{
@@ -83,8 +79,11 @@ class Widgets {
 	}
 	
 	// Display the widget's view files
-	public function display($name,$view,$data = array())
-	{		
+	public function display($widget_data = array(),$view,$data = array())
+	{	
+		// Get the data from the array
+		$name = $widget_data['widget_name'];
+		
 		// Verify the view file
 		if(file_exists(APPPATH . "widgets/$name/views/$view.php"))
 		{
@@ -99,10 +98,34 @@ class Widgets {
 		}		
 	}
 
-	// Function to retrieve the widget data from the body field.
-	public function get_data($name,$key = '0')
+	// Function to retrieve the widget data from the body field. TODO: Enable a cache system for the database calls to reduce the server load.
+	public function get_data($widget_data,$key)
 	{		
-		// TODO: Rewrite this function from scratch. Something like "where name = $name AND area = $this_widgets_area..."
+		// Get the data from the array
+		$id	  	= $widget_data['instance_id'];
+		
+		// Get the specified widget
+		$query 	= $this->CI->db->get_where('widget_instances',array('id' => $id));
+		
+		if($query->num_rows() > 0)
+		{
+			$results = $query->result();
+			
+			foreach($results as $result)
+			{
+				$body = unserialize($result->body);
+				
+				// Return either the specified key or the entire body.
+				if(isset($key))
+				{
+					return $body[$key];
+				}
+				else
+				{
+					return $body;
+				}
+			}
+		}
 	}	
 	
 	// Function to get a list of all available areas that are defined in the areas.json based on the template. #TODO : Update this since the file format has been changed to XML
