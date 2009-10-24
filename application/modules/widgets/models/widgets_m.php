@@ -51,14 +51,28 @@ class Widgets_m extends Model
 		// Valid ID ? 
 		if(isset($id) AND is_numeric($id))
 		{
+			// First we need the ID of the widget instance's widget
+			$this->db->select('widget_id');
+			$query = $this->db->get_where('widget_instances',array('id' => $id));
+			
+			if($query->num_rows() > 0)
+			{
+				$result = $query->result();
+				$widget_id = $result[0]->widget_id;
+			}
+			else
+			{
+				return FALSE;
+			}
+			
 			// Remove the widget from the database			
-			$this->db->where('widget_id',$id);
-			$query_1 = $this->db->delete('widget_instances');
+			$this->db->where('id',$id);
+			$query = $this->db->delete('widget_instances');
 			
 			// Instance deleted, continue
-			if($query_1 == TRUE)
+			if($query == TRUE)
 			{
-				$this->db->where('widgets',$id);
+				$this->db->where('id',$widget_id);
 				$query = $this->db->delete('widgets');
 				
 				return $query;

@@ -19,16 +19,16 @@ class Feeds extends Widgets {
 		$limit 		= $this->get_data($__widget,'limit');
 		
 		// Load the SimplePie library
-		$this->load->library('Simplepie');		
+		$this->CI->load->library('Simplepie');		
 		
 		// Configure SimplePie
-		$this->simplepie->set_cache_location(APPPATH.'cache/simplepie');
-		$this->simplepie->set_feed_url($feed_link);
-		$this->simplepie->init();
-		$this->simplepie->handle_content_type();
+		$this->CI->simplepie->set_cache_location(APPPATH.'cache/simplepie');
+		$this->CI->simplepie->set_feed_url($feed_link);
+		$this->CI->simplepie->init();
+		$this->CI->simplepie->handle_content_type();
 		
 		// Set some variables for the view file
-		$data['items'] 		= $this->simplepie->get_items(0,$limit);
+		$data['items'] 		= $this->CI->simplepie->get_items(0,$limit);
 		$data['title'] 		= $this->get_data($__widget,'title');
 		$data['desc_only']  = $this->get_data($__widget,'desc_only');
 		$data['show_date']  = $this->get_data($__widget,'show_date');

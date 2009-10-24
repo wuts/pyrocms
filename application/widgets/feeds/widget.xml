@@ -6,7 +6,7 @@
 		<desc>This widget displays a list of external RSS or Atom feeds using SimplePie.</desc>
 		<body>
 			<param name="title">RSS Feeds</param>
-			<param name="link">http://www.pyrocms.com/blog/rss</param>
+			<param name="link">http://pyrocms.com/news/rss/all.rss</param>
 			<param name="limit">2</param>
 			<param name="desc_only">TRUE</param>
 			<param name="show_date">TRUE</param>

@@ -63,22 +63,23 @@ class Admin extends Admin_Controller
 		// I can haz post ? 
 		if($_POST)
 		{
-			foreach($_POST['action_to'] as $widget)
-			{
+			$widgets = $_POST['action_to'];
+			
+			foreach($widgets as $widget)
+			{				
 				$status = $this->widgets_m->installWidget($widget);
 				
 				// Check the installation results
-				if($status == TRUE)
-				{
-					$this->session->set_flashdata('success', 'The specified widget(s) have been installed successfully.');
-					redirect('admin/widgets/index');
-				}
-				else
+				if($status == FALSE)
 				{
 					$this->session->set_flashdata('error', 'The specified widget(s) could not be installed.');
 					redirect('admin/widgets/install');
 				}
-			} 			
+			} 	
+			
+			// Redirect upon success
+			$this->session->set_flashdata('success', 'The specified widget(s) have been installed successfully.');
+			redirect('admin/widgets/index');		
 		}
 		
 		// Get a list of all available widgets 
@@ -206,14 +207,14 @@ class Admin extends Admin_Controller
 	function delete()
 	{		
 		// Get the widget ID based on the URL or POST data
-		if($_POST)
-		{
-			$id = $_POST['action_to'];
-		}
-		else
+		if($this->uri->segment(4))
 		{
 			$id = $this->uri->segment(4);
 		}
+		else
+		{
+			$id = $_POST['action_to'];
+		}	
 		
 		// ID specified ? 
 		if(isset($id))
@@ -225,7 +226,7 @@ class Admin extends Admin_Controller
 				foreach($id as $key => $value)
 				{
 					// Get the name of the widget
-					$query = $this->widgets_m->getWidgets(array('id' => $value));
+					$query = $this->widgets_m->getWidgets(array('widget_instances.id' => $value));
 					
 					if($query != FALSE)
 					{
