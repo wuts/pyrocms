@@ -1,0 +1,1 @@
+Allow permissions to be set for a single user. Most of the admin work is done and the field is supported in the database. Just allow a list of users on the admin interface and enforce it in the Admin_Controller.
