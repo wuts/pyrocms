@@ -1,4 +1,4 @@
-<h2><?php echo $title; ?></h2>
+<h3><?php echo $title; ?></h3>
 <ul>
 	<?php if($this->news_m->getNews(array('limit' => $limit,'month' => $month))): ?>
 	<?php foreach ($this->news_m->getNews(array('limit' => $limit,'year' => $archive)) as $news): ?>

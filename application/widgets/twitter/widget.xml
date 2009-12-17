@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets>
+	<widget>
+		<name>Twitter</name>
+		<author>PyroCMS Development Team</author>
+		<desc>Twitter widget to display your latest tweets.</desc>
+		<body>
+			<param name="title">Twitter</param>
+			<param name="display">public_timeline</param>
+			<param name="limit">2</param>
+			<param name="show_image">TRUE</param>
+		</body>
+		<license>MIT License</license>
+		<version>1.0</version>
+	</widget>
+</widgets>

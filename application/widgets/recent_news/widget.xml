@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets>
+	<widget>
+		<name>Recent News</name>
+		<author>PyroCMS Development Team</author>
+		<desc>This widget displays a list of the latest articles based on a category or date.</desc>
+		<body>
+			<param name="title">Recent News</param>
+			<param name="article_limit">2</param>
+			<param name="display">category</param>
+			<param name="year">2009</param>
+			<param name="category">1</param>
+			<param name="show_intro">TRUE</param>
+		</body>
+		<license>MIT License</license>
+		<version>1.0</version>
+	</widget>
+</widgets>
